@@ -1,0 +1,36 @@
+[book]
+authors = ["Mark Bacon"]
+language = "en"
+multilingual = false
+src = "Documentation_structure"
+title = "Documentation"
+
+
+[build]
+build-dir = "book"                # the directory where the output is placed
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+additional-css = ["./theme/catppuccin.css", "./theme/catppuccin-admonish.css"]
+
+[output.html.fold]
+enable = true
+level = 0
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[preprocessor.index]
+
+[preprocessor.links]
+
+[preprocessor.codeblocks]
+renderers = ["html"]
+cpp = { color = "#FFFF99", link = "https://wiki.redmodding.org/red4ext" }
+redscript = { color = "tomato", link = "https://wiki.redmodding.org/redscript" }
+rust = { color = "#ac4313", link = "https://github.com/jac3km4/red4ext-rs" }
+lua = { link = "https://wiki.redmodding.org/cyber-engine-tweaks" }
+swift = { label = "Swift code snippet", color = "skyblue" }
+
+[preprocessor.catppuccin]
+assets_version = "2.1.0" # DO NOT EDIT: Managed by `mdbook-catppuccin install`

@@ -1,0 +1,61 @@
+name: Mdbook build
+on:
+  push:
+    branches:
+      - main
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' 
+      - uses: jontze/action-mdbook@v3
+        with:
+          token: ${{secrets.GITHUB_TOKEN}}
+          # Optional Plugins have to be enabled
+          use-linkcheck: true
+          use-mermaid: true
+          use-toc: true
+          use-opengh: true
+          use-admonish: true
+          use-katex: true
+      - uses: actions/checkout@v2
+      - name: Install latest nightly
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: nightly
+            override: true
+            components: rustfmt, clippy
+      - name: Show mdbook version
+        run: mdbook --version
+      - name: Show linkchecker version
+        run: mdbook-linkcheck --version
+      - name: Show mermaid version
+        run: mdbook-mermaid --version
+      - name: Show toc version
+        run: mdbook-toc --version
+      - name: Show open-on-gh version
+        run: mdbook-open-on-gh --version
+      - name: Show admonish version
+        run: mdbook-admonish --version
+      - name: Show katex version
+        run: mdbook-katex --version
+      - name: install catppuccin
+        run: cargo install mdbook-catppuccin
+      - name: install mdbook-codeblocks
+        run: cargo install mdbook-codeblocks
+      - name: install mdbook-indexing
+        run: cargo install mdbook-indexing
+      - name: install mdbook-pdf
+        run: cargo install mdbook-pdf
+      - name: Build SUMMARY.md
+        run: cd GitHub_Pages/Documentation_structure; python3 generate-summary.py
+      - name: Build book
+        run: cd GitHub_Pages; mdbook build
+      # share between different jobs
+      - uses: actions/upload-artifact@v3
+        with:
+          name: book
+          path: GitHub_Pages/book/
