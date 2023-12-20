@@ -28,6 +28,7 @@ jobs:
             toolchain: nightly
             override: true
             components: rustfmt, clippy
+      # show versions
       - name: Show mdbook version
         run: mdbook --version
       - name: Show linkchecker version
@@ -42,6 +43,7 @@ jobs:
         run: mdbook-admonish --version
       - name: Show katex version
         run: mdbook-katex --version
+      # install other mdbook tools
       - name: install catppuccin
         run: cargo install mdbook-catppuccin
       - name: install mdbook-codeblocks
@@ -50,8 +52,10 @@ jobs:
         run: cargo install mdbook-indexing
       - name: install mdbook-pdf
         run: cargo install mdbook-pdf
+      # buil SUMMARY.md
       - name: Build SUMMARY.md
         run: cd GitHub_Pages/Documentation_structure; python3 generate-summary.py
+      # build book
       - name: Build book
         run: cd GitHub_Pages; mdbook build
       # share between different jobs
