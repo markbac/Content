@@ -1,0 +1,17 @@
+# ADSL
+
+
+Asymmetric Digital Subscriber Loop
+
+Asymmetric digital subscriber line (ADSL) is a type of digital
+subscriber line (DSL) technology, a data communications technology that
+enables faster data transmission over copper telephone lines than a
+conventional voiceband modem can provide. ADSL differs from the less
+common symmetric digital subscriber line (SDSL). In ADSL, bandwidth and
+bit rate are said to be asymmetric, meaning greater toward the customer
+premises (downstream) than the reverse (upstream). Providers usually
+market ADSL as a service for consumers for Internet access for primarily
+downloading content from the Internet, but not serving content accessed
+by others.\
+![](./images/15007760.png?width=480)
+

@@ -1,0 +1,15 @@
+# C\#
+
+
+C\# is a multi-paradigm programming language encompassing strong typing,
+imperative, declarative, functional, generic, object-oriented
+(class-based), and component-oriented programming disciplines. It was
+developed around 2000 by Microsoft within its .NET initiative and later
+approved as a standard by Ecma (ECMA-334) and ISO (ISO/IEC 23270:2006).
+C\# is one of the programming languages designed for the Common Language
+Infrastructure.
+
+C\# is a general-purpose, object-oriented programming language.
+
+
+

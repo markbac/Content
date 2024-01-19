@@ -1,0 +1,5 @@
+# Objectives
+
+
+Synonym for *goals*.
+
