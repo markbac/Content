@@ -13,7 +13,7 @@ jobs:
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
     env:
-      DTC_HEADLES: true
+      DTC_HEADLESS: true
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-ruby@v1
@@ -25,7 +25,6 @@ jobs:
         run:  chmod +x ./GitHub_Pages/generate_includes.sh ; ./GitHub_Pages/generate_includes.sh
       - name: Update images
         run:  chmod +x ./GitHub_Pages/image_preprocess.sh ; ./GitHub_Pages/image_preprocess.sh
-      - name: Create glossary.adoc
       - name: Generate PDF
         run: ./dtcw generatePDF  
       - name: Archive pdf artifacts
