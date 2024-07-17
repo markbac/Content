@@ -18,7 +18,7 @@ changed from version 1.1 where the "D" stood for "Definition".
 ![](./images/15009243.png?width=480)
 
 
-
+```xml
 `<description xmlns="http://www.w3.org/ns/wsdl" xmlns:tns="http://www.tmsws.com/wsdl20sample" xmlns:whttp="http://schemas.xmlsoap.org/wsdl/http/"xmlns:wsoap="http://schemas.xmlsoap.org/wsdl/soap/"targetNamespace="http://www.tmsws.com/wsdl20sample">`{=html}\
 `<documentation>`{=html}This is a sample WSDL 2.0 document.
 `</documentation>`{=html}\
@@ -33,3 +33,4 @@ changed from version 1.1 where the "D" stood for "Definition".
 `</operation>`{=html}`</interface>`{=html}\
 `<!-- Concrete Binding Over HTTP -->`{=html}
 `<!-- Web Service offering endpoints for both bindings-->`{=html}`<service name="Service1" interface="tns:Interface1">`{=html}`<endpoint name="HttpEndpoint" binding="tns:HttpBinding" address="http://www.example.com/rest/"/>`{=html}`<endpoint name="SoapEndpoint" binding="tns:SoapBinding" address="http://www.example.com/soap/"/>`{=html}`</service>`{=html}`</description>`{=html}
+```
