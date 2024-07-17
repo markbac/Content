@@ -62,29 +62,37 @@ process_file() {
       content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\?[^ ]*\[\]|image::\1[]|g')
       content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\[\]|image::\1[]|g')
 
+      # Debug: Print the image directives after adjustment
+      if $debug; then
+        echo "$content"
+      fi
+
       # Remove trailing backslashes before image directives
-      content=$(echo -e "$content" | sed -E 's|\\\nimage::|image::|g')
+      content=$(echo "$content" | sed ':a;N;$!ba;s/\\\n/\n/g')
 
       # Debug: Print the image directives after adjustment
       if $debug; then
         echo "After adjustment:"
         echo "$content" | grep "image::" || echo "No image:: directives found"
+        echo "$content"
       fi
 
       # Ensure the file ends with an empty line
       if [[ ! "$content" =~ \n$ ]]; then
         content="${content}\n"
+        echo "$content"
       fi
 
       # Write back to the file
       echo -e "$content" > "$file"
+      echo "$content"
     fi
   fi
 }
 
 # Find and process the specific .adoc file for debugging purposes if debug mode is on, otherwise process all .adoc files
 if $debug; then
-  find "$baseDir" -name 'ATM.adoc' -print0 | while IFS= read -r -d '' file; do
+  find "$baseDir" -name 'DCE.adoc' -print0 | while IFS= read -r -d '' file; do
     process_file "$file"
   done
 else
