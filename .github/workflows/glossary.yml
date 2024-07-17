@@ -1,0 +1,57 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main # Set a branch name to trigger deployment
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    env:
+      DTC_HEADLES: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-ruby@v1
+      - name: Setup docToolchain
+        run: chmod +x dtcw
+      - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
+        run: ./dtcw exportMarkdown && cp -r ./build/Documentation_structure ./GitHub_Pages/ 
+      - name: Create glossary.adoc
+        run:  chmod +x ./GitHub_Pages/generate_includes.sh ; ./GitHub_Pages/generate_includes.sh
+      - name: Update images
+        run:  chmod +x ./GitHub_Pages/image_preprocess.sh ; ./GitHub_Pages/image_preprocess.sh
+      - name: Create glossary.adoc
+      - name: Generate PDF
+        run: ./dtcw generatePDF  
+      - name: Archive pdf artifacts
+        uses: actions/upload-artifact@v4.3.4
+        with:
+          name: pdf-output
+          path: build/pdf/internet-banking-system.pdf
+          retention-days: 90
+  deploy:    # Add a dependency to the build job
+    needs: build
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: pdf-output
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action  uses: actions/deploy-pages@v4.0.5
+        with:
+          artifact_name: github-pages # optional, default is github-pages
