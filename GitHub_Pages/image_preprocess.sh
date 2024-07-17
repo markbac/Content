@@ -80,12 +80,10 @@ process_file() {
       # Ensure the file ends with an empty line
       if [[ ! "$content" =~ \n$ ]]; then
         content="${content}\n"
-        echo "$content"
       fi
 
       # Write back to the file
       echo -e "$content" > "$file"
-      echo "$content"
     fi
   fi
 }
