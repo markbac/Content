@@ -62,6 +62,9 @@ process_file() {
       content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\?[^ ]*\[\]|image::\1[]|g')
       content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\[\]|image::\1[]|g')
 
+      # Remove trailing backslashes before image directives
+      content=$(echo -e "$content" | sed -E 's|\\\nimage::|image::|g')
+
       # Debug: Print the image directives after adjustment
       if $debug; then
         echo "After adjustment:"
