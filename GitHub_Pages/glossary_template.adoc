@@ -1,0 +1,46 @@
+// configure EN settings for asciidoc
+// asciidoc settings for EN (English)
+// ==================================
+:toc-title: table of contents
+
+// enable table-of-contents
+:toc: left
+
+// where are images located?
+:imagesdir: ./images
+
+:diagram-server-url: https://kroki.io
+:diagram-server-type: kroki_io
+:doctype: book
+
+= Glossary of terms
+:revnumber: 1.0
+:revdate: July 2024
+:revremark: First Version
+// toc-title definition MUST follow document title without blank line!
+:toc-title: Table of Contents
+
+//additional style for arc42 help callouts
+ifdef::backend-html5[]
+++++
+<style>
+.arc42help {font-size:small; width: 14px; height: 16px; overflow: hidden; position: absolute; right: 0; padding: 2px 0 3px 2px;}
+.arc42help::before {content: "?";}
+.arc42help:hover {width:auto; height: auto; z-index: 100; padding: 10px;}
+.arc42help:hover::before {content: "";}
+@media print {
+	.arc42help {display:none;}
+}
+</style>
+++++
+endif::backend-html5[]
+
+
+
+// numbering from here on
+:numbered:
+
+<<<<//INCLUDES>>>>
+
+
+
