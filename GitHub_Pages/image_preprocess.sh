@@ -42,20 +42,25 @@ process_file() {
         echo "$original_content"
       fi
 
-      # Prepend the imagesdir setting only if it doesn't already exist and the file contains an image:: directive
-      if grep -q "image::" <<< "$content" && ! grep -q "^:imagesdir:" <<< "$content"; then
+      # Ensure the first '=' is followed by another '=' to create a section
+      if [[ "$content" =~ ^[^=]*= ]]; then
+        content=$(echo "$content" | sed '0,/=/ s//===/')
+      fi
+
+      # Prepend the imagesdir setting if it doesn't already exist
+      if ! grep -q "^:imagesdir:" <<< "$content"; then
         content="${images_dir_block}\n${content}"
       fi
 
       # Debug: Print the image directives before adjustment
       if $debug; then
         echo "Before adjustment:"
-        echo "$original_content" | grep "image::" || echo "No image:: directives found"
+        echo "$original_content" | grep "image:" || echo "No image: directives found"
       fi
 
-      # Adjust all image:: directives to be relative to :imagesdir: and strip any parameters after the image file name
-      content=$(echo -e "$content" | sed -E 's|image::([^\[]*)\?[^ ]*\[\]|image::\1|g')
-      content=$(echo -e "$content" | sed -E 's|image::([^\[]*)\[\]|image::\1|g')
+      # Adjust all image: directives to be relative to :imagesdir: and ensure they end with []
+      content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\?[^ ]*\[\]|image::\1[]|g')
+      content=$(echo -e "$content" | sed -E 's|image:./images/([^ ]+)\[\]|image::\1[]|g')
 
       # Debug: Print the image directives after adjustment
       if $debug; then
@@ -85,13 +90,4 @@ else
   done
 fi
 
-# Run docToolchain to generate the PDF if not in dry run mode
-if ! $dry_run; then
-  if [[ -f ./gradlew ]]; then
-    ./gradlew generatePDF
-  else
-    echo "gradlew not found, skipping PDF generation"
-  fi
-else
-  echo "Dry Run: Would run ./gradlew generatePDF"
-fi
+
