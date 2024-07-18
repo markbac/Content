@@ -15,13 +15,25 @@ jobs:
     env:
       DTC_HEADLES: true
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: '8.1.1'
       - name: Setup docToolchain
         run: chmod +x dtcw
       - name: run dtcw
         run: ./dtcw tasks
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
-        run: ./dtcw --info exportMarkdown && cp -r ./build/Documentation_structure ./GitHub_Pages/ 
+        run: ./dtcw --info exportMarkdown 
+      - name: Copy documentation structure
+        run: cp -r ./build/Documentation_structure ./GitHub_Pages/
       - name: Create glossary.adoc
         run:  chmod +x ./GitHub_Pages/generate_includes.sh ; ./GitHub_Pages/generate_includes.sh
       - name: Update images
