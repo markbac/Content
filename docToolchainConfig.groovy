@@ -1,4 +1,4 @@
-outputPath = 'build'
+outputPath = 'build22'
 
 // Path where the docToolchain will search for the input files.
 // This path is appended to the docDir property specified in gradle.properties
@@ -6,7 +6,7 @@ outputPath = 'build'
 
 inputPath = 'GitHub_Pages';
 
-docDir = 'carrot' // System.getProperty('docDir')?:'.'
+docDir = 'carrot'; // System.getProperty('docDir')?:'.'
 
 // the pdfThemeDir config in this file is outdated.
 // please check http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/030_generateHTML.html#_pdf_style for further details
