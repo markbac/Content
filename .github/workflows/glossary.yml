@@ -20,7 +20,7 @@ jobs:
       - name: Setup docToolchain
         run: chmod +x dtcw
       - name: run dtcw
-        run: ./dtcw
+        run: ./dtcw tasks
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
         run: ./dtcw --info exportMarkdown && cp -r ./build/Documentation_structure ./GitHub_Pages/ 
       - name: Create glossary.adoc
