@@ -483,3 +483,6 @@ structurizr.with {
         format = 'plantuml'
     }
 }
+
+
+println "docToolchainConfig.groovy is being used. docDir: ${docDir}"
