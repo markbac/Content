@@ -16,7 +16,6 @@ jobs:
       DTC_HEADLESS: true
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-ruby@v1
       - name: Setup docToolchain
         run: chmod +x dtcw
       - name: run dtcw
