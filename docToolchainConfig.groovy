@@ -6,7 +6,7 @@ outputPath = 'build'
 
 inputPath = 'GitHub_Pages';
 
-docDir = System.getProperty('docDir')?:'.'
+docDir = '.' // System.getProperty('docDir')?:'.'
 
 // the pdfThemeDir config in this file is outdated.
 // please check http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/030_generateHTML.html#_pdf_style for further details
