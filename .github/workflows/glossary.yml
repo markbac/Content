@@ -24,8 +24,6 @@ jobs:
           java-version: '17'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v3
-      - name: Set up Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v4
         #with:
         #  gradle-version: '8.1.1'
       - name: Setup docToolchain
