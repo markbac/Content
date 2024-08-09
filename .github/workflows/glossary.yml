@@ -1,12 +1,10 @@
 name: Glossary
-
 on:
   push:
     branches:
       - main # Set a branch name to trigger deployment
   pull_request:
   workflow_dispatch: {}
-
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -17,62 +15,43 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Run Doctoolchain in Docker (Privileged Mode)
-        run: |
-          docker run --privileged --name dtc-test-container \
-            -v ${{ github.workspace }}:/project \
-            -w /project \
-            --user root \
-            doctoolchain/doctoolchain:v3.4.0 /bin/bash -c "./dtcw --debug --stacktrace --info exportMarkdown"
-
+      - name: Setup docToolchain
+        run: chmod +x dtcw
+      - name: run dtcw
+        run: ./dtcw tasks
+      - name: listing
+        run: pwd; find . -type f
+      - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
+        run: ./dtcw --debug --stacktrace --info exportMarkdown 
       - name: Copy documentation structure
         run: cp -r ./build/Documentation_structure ./GitHub_Pages/
-
       - name: Create glossary.adoc
         run: chmod +x ./GitHub_Pages/generate_includes.sh; ./GitHub_Pages/generate_includes.sh
-
       - name: Update images
         run: chmod +x ./GitHub_Pages/image_preprocess.sh; ./GitHub_Pages/image_preprocess.sh
-
       - name: Generate PDF
-        run: docker run -it --privileged --name dtc-test-container \
-            -v ${{ github.workspace }}:/project \
-            -w /project \
-            --user root \
-            doctoolchain/doctoolchain:v3.4.0 /bin/bash -c "./dtcw generatePDF"
-
+        run: ./dtcw generatePDF  
       - name: Archive pdf artifacts
         uses: actions/upload-artifact@v4.3.4
         with:
           name: pdf-output
           path: build/pdf/internet-banking-system.pdf
           retention-days: 90
-
   deploy:    # Add a dependency to the build job
     needs: build
-
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
-
     # Deploy to the github-pages environment
     environment:
       name: pdf-output
       url: ${{ steps.deployment.outputs.page_url }}
-
     # Specify runner + deployment step
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action  uses: actions/deploy-pages@v4.0.5
         with:
           artifact_name: github-pages # optional, default is github-pages
