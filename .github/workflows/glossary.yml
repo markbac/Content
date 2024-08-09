@@ -15,10 +15,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          clean: 'true'
       - name: Setup docToolchain
         run: chmod +x dtcw
       - name: Change permissions
         run: chmod -R 777 .
+      - name: list
+        run: find . -type f
       - name: run dtcw
         run: ./dtcw tasks
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
