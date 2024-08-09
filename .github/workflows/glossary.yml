@@ -41,7 +41,7 @@ jobs:
       - name: listing
         run: pwd; find . -type f
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
-        run: ./dtcw --info exportMarkdown 
+        run: ./dtcw --debug --stacktrace --info exportMarkdown 
       - name: Copy documentation structure
         run: cp -r ./build/Documentation_structure ./GitHub_Pages/
       - name: Create glossary.adoc
