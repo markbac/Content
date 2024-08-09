@@ -17,36 +17,44 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      #- name: Set up JDK
-      #  uses: actions/setup-java@v4
-      #  with:
-      #    distribution: 'adopt'
-      #    java-version: '17'
-      #- name: Set up Ruby
-      #  uses: actions/setup-ruby@v1
-      # Caching Gradle dependencies
-      - name: Setup docToolchain
-        run: chmod +x dtcw
-      - name: run dtcw
-        run: ./dtcw tasks
-      - name: listing
-        run: pwd; find . -type f
-      - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
-        run: ./dtcw --debug --stacktrace --info exportMarkdown 
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Run Doctoolchain in Docker (Privileged Mode)
+        run: |
+          docker run -it --privileged --name dtc-test-container \
+            -v ${{ github.workspace }}:/project \
+            -w /project \
+            --user root \
+            doctoolchain/doctoolchain:v3.4.0 /bin/bash -c "./dtcw --debug --stacktrace --info exportMarkdown"
+
       - name: Copy documentation structure
         run: cp -r ./build/Documentation_structure ./GitHub_Pages/
+
       - name: Create glossary.adoc
-        run:  chmod +x ./GitHub_Pages/generate_includes.sh ; ./GitHub_Pages/generate_includes.sh
+        run: chmod +x ./GitHub_Pages/generate_includes.sh; ./GitHub_Pages/generate_includes.sh
+
       - name: Update images
-        run:  chmod +x ./GitHub_Pages/image_preprocess.sh ; ./GitHub_Pages/image_preprocess.sh
+        run: chmod +x ./GitHub_Pages/image_preprocess.sh; ./GitHub_Pages/image_preprocess.sh
+
       - name: Generate PDF
-        run: ./dtcw generatePDF  
+        run: docker run -it --privileged --name dtc-test-container \
+            -v ${{ github.workspace }}:/project \
+            -w /project \
+            --user root \
+            doctoolchain/doctoolchain:v3.4.0 /bin/bash -c "./dtcw generatePDF"
+
       - name: Archive pdf artifacts
         uses: actions/upload-artifact@v4.3.4
         with:
           name: pdf-output
           path: build/pdf/internet-banking-system.pdf
           retention-days: 90
+
   deploy:    # Add a dependency to the build job
     needs: build
 
@@ -65,6 +73,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action  uses: actions/deploy-pages@v4.0.5
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
         with:
           artifact_name: github-pages # optional, default is github-pages
