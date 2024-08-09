@@ -4,7 +4,7 @@ outputPath = 'build'
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
-inputPath = 'GitHub_Pages';
+inputPath = 'GitHub_Pages/Glossary';
 
 docDir = System.getProperty('docDir')?:'.'
 

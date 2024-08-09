@@ -30,9 +30,9 @@ jobs:
       - name: Copy documentation structure
         run: cp -r ./build/Documentation_structure ./GitHub_Pages/
       - name: Create glossary.adoc
-        run: chmod +x ./GitHub_Pages/generate_includes.sh; ./GitHub_Pages/generate_includes.sh
+        run: chmod +x ./generate_includes.sh; ./generate_includes.sh
       - name: Update images
-        run: chmod +x ./GitHub_Pages/image_preprocess.sh; ./GitHub_Pages/image_preprocess.sh
+        run: chmod +x ./image_preprocess.sh; ./image_preprocess.sh
       - name: Generate PDF
         run: ./dtcw generatePDF  
       - name: Archive pdf artifacts

@@ -14,7 +14,7 @@ while getopts "nd" opt; do
 done
 
 # Directory containing AsciiDoc files
-baseDir="GitHub_Pages/"
+baseDir="GitHub_Pages/Glossary"
 
 # Function to process a file
 process_file() {

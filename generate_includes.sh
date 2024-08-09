@@ -8,8 +8,8 @@ if [[ $1 == "--debug" ]]; then
 fi
 
 # Define the input and output files
-input_file="glossary_template.adoc"
-output_file="glossary.adoc"
+input_file="GitHub_Pages/glossary_template.adoc"
+output_file="GitHub_Pages/glossary.adoc"
 
 # Temporary file to store the includes
 temp_includes_file="temp_includes.adoc"
