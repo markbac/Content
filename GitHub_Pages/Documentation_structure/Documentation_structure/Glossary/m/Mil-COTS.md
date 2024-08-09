@@ -1,5 +1,0 @@
-# Mil-COTS
-
-
-See COTS
-

@@ -1,5 +1,0 @@
-# DQ
-
-
-Data Quality
-

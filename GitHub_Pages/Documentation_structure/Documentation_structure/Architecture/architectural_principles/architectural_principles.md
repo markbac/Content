@@ -1,1 +1,0 @@
-# architectural_principles

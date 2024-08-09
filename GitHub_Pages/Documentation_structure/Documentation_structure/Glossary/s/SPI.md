@@ -1,8 +1,0 @@
-# SPI
-
-
-Serial Peripheral Interface
-
-
-
-

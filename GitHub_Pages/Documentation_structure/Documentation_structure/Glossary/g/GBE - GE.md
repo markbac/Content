@@ -1,5 +1,0 @@
-# GBE / GE
-
-
-Gigabit Ethernet
-

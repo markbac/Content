@@ -1,5 +1,0 @@
-# COLO
-
-
-COlLOcated
-
