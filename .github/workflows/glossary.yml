@@ -21,8 +21,6 @@ jobs:
         run: chmod -R 777 .
       - name: run dtcw
         run: ./dtcw tasks
-      - name: listing
-        run: pwd; find . -type f
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
         run: ./dtcw --debug --stacktrace --info exportMarkdown 
       - name: Copy documentation structure
