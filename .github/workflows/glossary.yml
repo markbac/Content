@@ -26,7 +26,7 @@ jobs:
 
       - name: Run Doctoolchain in Docker (Privileged Mode)
         run: |
-          docker run -it --privileged --name dtc-test-container \
+          docker run --privileged --name dtc-test-container \
             -v ${{ github.workspace }}:/project \
             -w /project \
             --user root \
