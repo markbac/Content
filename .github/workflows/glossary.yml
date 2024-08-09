@@ -17,23 +17,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'adopt'
-          java-version: '17'
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+      #- name: Set up JDK
+      #  uses: actions/setup-java@v4
+      #  with:
+      #    distribution: 'adopt'
+      #    java-version: '17'
+      #- name: Set up Ruby
+      #  uses: actions/setup-ruby@v1
       # Caching Gradle dependencies
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
       - name: Setup docToolchain
         run: chmod +x dtcw
       - name: run dtcw
