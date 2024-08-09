@@ -14,7 +14,7 @@ while getopts "nd" opt; do
 done
 
 # Directory containing AsciiDoc files
-baseDir="Documentation_structure/Glossary"
+baseDir="Documentation_structure/"
 
 # Function to process a file
 process_file() {
