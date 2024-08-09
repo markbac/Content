@@ -38,6 +38,8 @@ jobs:
         run: chmod +x dtcw
       - name: run dtcw
         run: ./dtcw tasks
+      - name: listing
+        run: find . -type f
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
         run: ./dtcw --info exportMarkdown 
       - name: Copy documentation structure
