@@ -9,7 +9,7 @@ fi
 
 # Define the input and output files
 input_file="GitHub_Pages/glossary_template.adoc"
-output_file="GitHub_Pages/glossary.adoc"
+output_file="GitHub_Pages/Glossary/glossary.adoc"
 
 # Temporary file to store the includes
 temp_includes_file="temp_includes.adoc"
