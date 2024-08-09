@@ -39,7 +39,7 @@ jobs:
       - name: run dtcw
         run: ./dtcw tasks
       - name: listing
-        run: find . -type f
+        run: pwd; find . -type f
       - name: Migrate Markdown based ADRs from adr-tools to AsciiDoc
         run: ./dtcw --info exportMarkdown 
       - name: Copy documentation structure
